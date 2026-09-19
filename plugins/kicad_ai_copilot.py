@@ -14,6 +14,9 @@ import json
 import ctypes
 import platform
 import traceback
+import urllib.request
+import urllib.parse
+import time
 
 try:
     import pcbnew
@@ -65,7 +68,11 @@ class KiCadAiCopilotPlugin(pcbnew.ActionPlugin):
             return None
 
     def extract_board_state(self, board):
+        # Determine layer count
+        layer_count = board.GetCopperLayerCount()
+
         state = {
+            "layer_count": layer_count,
             "thickness_mm": board.GetDesignSettings().GetBoardThickness() / 1e6,
             "copper_weight_oz": 1.0, # Default
             "nets": [],
@@ -148,12 +155,146 @@ class KiCadAiCopilotPlugin(pcbnew.ActionPlugin):
                 # Typically implies placing a footprint or bridging tracks.
                 pass
 
+            elif ctype == "ADD_JUMPER":
+                p_pitch = params.get("p_pitch_mm", 5.08)
+                self.place_jumper_footprint(board, net_name, p_pitch)
+
             elif ctype == "TUNE_MEANDER" or ctype == "APPLY_CPWG_AND_FENCE":
                 # Placeholders for advanced trace routing APIs
                 pass
 
+    def place_jumper_footprint(self, board, net_name, pitch_mm):
+        """
+        Dynamically loads a 0-ohm Jumper/Resistor footprint and places it on the board.
+        Then attempts to backannotate the schematic file (.kicad_sch).
+        """
+        try:
+            # Try to load standard axial resistor footprint as a jumper
+            fp = pcbnew.FootprintLoad(
+                pcbnew.GetGlobalTable(),
+                "Resistor_THT",
+                "R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal"
+            )
+            if not fp:
+                return
+
+            fp.SetReference(f"JMP_{net_name}")
+            fp.SetValue("0R")
+
+            # Place it near the center (placeholder positioning)
+            rect = board.GetBoardEdgesBoundingBox()
+            center_x = rect.GetCenter().x
+            center_y = rect.GetCenter().y
+            fp.SetPosition(pcbnew.VECTOR2I(center_x, center_y))
+
+            # Assign pads to the net
+            net = board.FindNet(net_name)
+            if net:
+                for pad in fp.Pads():
+                    pad.SetNet(net)
+
+            board.Add(fp)
+
+            # Text-based Schematic Backannotation
+            self.backannotate_schematic(board.GetFileName(), f"JMP_{net_name}", net_name)
+
+        except Exception as e:
+            pcbnew.wxLogMessage(f"Failed to place jumper: {e}")
+
+    def backannotate_schematic(self, pcb_path, ref_des, net_name):
+        """
+        Appends the newly added Jumper to the KiCad schematic by directly text-parsing the .kicad_sch file.
+        """
+        sch_path = pcb_path.replace(".kicad_pcb", ".kicad_sch")
+        if not os.path.exists(sch_path):
+            return
+
+        try:
+            with open(sch_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            if ref_des in content:
+                return # Already exists
+
+            # Create a simple KiCad 7/8 symbol definition for a Device:R (Resistor)
+            symbol_snippet = f'''
+  (symbol (lib_id "Device:R") (at 0 0 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (property "Reference" "{ref_des}" (at 1.27 0 0))
+    (property "Value" "0R" (at 1.27 -2.54 0))
+    (property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" (at 0 0 0))
+  )
+'''
+            # Append before the last closing parenthesis of the schematic file
+            idx = content.rfind(')')
+            if idx != -1:
+                new_content = content[:idx] + symbol_snippet + content[idx:]
+                with open(sch_path, 'w', encoding='utf-8') as f:
+                    f.write(new_content)
+
+        except Exception as e:
+            pcbnew.wxLogMessage(f"Schematic backannotation failed: {e}")
+
+    def handle_telemetry(self, optimizations_logs):
+        """
+        Handles GDPR/KVKK compliant telemetry collection.
+        Asks for user consent once, saves to config.json, and sends anonymous data to Google Drive Webhook.
+        """
+        config_path = os.path.join(os.path.dirname(__file__), "config.json")
+        config = {"telemetry_enabled": False, "webhook_url": ""}
+
+        if os.path.exists(config_path):
+            try:
+                with open(config_path, 'r') as f:
+                    config = json.load(f)
+            except:
+                pass
+
+        # Ask for consent if we are in a GUI environment and haven't asked before
+        if 'wx' in sys.modules and not config.get("consent_asked", False):
+            msg = (
+                "To improve our AI models and routing algorithms, we collect ANONYMOUS telemetry data.\n"
+                "This includes routing times, node counts, and rip-up success rates.\n"
+                "NO proprietary design data or file names are sent.\n\n"
+                "This complies with GDPR and KVKK regulations.\n"
+                "Do you consent to sending this anonymous data to help improve the tool?"
+            )
+            dlg = wx.MessageDialog(None, msg, "GDPR / KVKK Telemetry Consent", wx.YES_NO | wx.ICON_QUESTION)
+            result = dlg.ShowModal()
+            config["telemetry_enabled"] = (result == wx.ID_YES)
+            config["consent_asked"] = True
+            with open(config_path, 'w') as f:
+                json.dump(config, f, indent=4)
+
+        if not config.get("telemetry_enabled", False):
+            return
+
+        webhook = config.get("webhook_url", "")
+        if not webhook or "XXXX" in webhook:
+            return
+
+        # Prepare anonymous payload
+        payload = {
+            "timestamp": time.time(),
+            "os": platform.system(),
+            "kicad_version": pcbnew.GetBuildVersion() if hasattr(pcbnew, "GetBuildVersion") else "Unknown",
+            "optimizations_count": len(optimizations_logs),
+            "status": "Success"
+        }
+
+        # Send to Google Apps Script Webhook
+        try:
+            req = urllib.request.Request(webhook)
+            req.add_header('Content-Type', 'application/json; charset=utf-8')
+            json_data = json.dumps(payload).encode('utf-8')
+            req.add_header('Content-Length', len(json_data))
+            urllib.request.urlopen(req, json_data, timeout=5.0)
+        except Exception as e:
+            pcbnew.wxLogMessage(f"Telemetry submission failed: {e}")
+
     def Run(self):
         try:
+            start_time = time.time()
             board = pcbnew.GetBoard()
             if not board:
                 return
@@ -201,6 +342,9 @@ class KiCadAiCopilotPlugin(pcbnew.ActionPlugin):
                 wx.MessageBox(msg, "Optimization Complete", wx.ICON_INFORMATION)
             else:
                 pcbnew.wxLogMessage(msg)
+
+            # 6. Handle Telemetry
+            self.handle_telemetry(result_json.get("optimizations_applied", []))
 
         except Exception as e:
             err = traceback.format_exc()
