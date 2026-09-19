@@ -39,3 +39,5 @@ Thumbs.db
 *.swp
 *.swo
 *~
+plugins/engine/target/
+/plugins/engine/target/
