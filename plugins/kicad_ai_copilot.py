@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Copyright (C) 2024 Saffet Yavuz. All Rights Reserved.
+
 KiCad AI Copilot & Auto-Router Action Plugin (KiCad 10 / High Performance)
 Bridge to Rust Engine (kicad_copilot_engine)
 

@@ -1,3 +1,10 @@
+/*
+ * Copyright (C) 2024 Saffet Yavuz. All Rights Reserved.
+ *
+ * KiCad AI Copilot & Auto-Router
+ * High-Performance Vectorial Rip-up & Reroute Rust Engine
+ */
+
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 use serde::{Deserialize, Serialize};
