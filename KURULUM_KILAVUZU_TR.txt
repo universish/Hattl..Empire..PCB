@@ -1,0 +1,39 @@
+====================================================================
+KICAD AI PCB COPILOT & AUTO-ROUTER — KURULUM VE KULLANIM KILAVUZU
+====================================================================
+
+Bu paket, KiCad 7.x ve 8.x sürümleri için özel olarak hazırlanmış
+resmi KiCad PCM (Plugin and Content Manager) uyumlu eklenti paketidir.
+
+Tasarım Yetenekleri:
+- Bileşen Yerleşimi Koruma: Footprint'lerinizi asla taşımaz veya kaydırmaz.
+- PCB Kalınlığı & Bakır Ayarı: 0.6-3.2mm kalınlık ve 0.5-3.0oz bakır desteği.
+- IPC-2152 Güç Yönlendirme: Yüksek akım hatlarını formülle boyutlandırır.
+- 50 Ohm RF CPWG Kalkanı: Mikroşerit empedans eşleme ve lambda/20 via fence kalkanı.
+- Star Net-Tie: GNDA ile dijital GND tek noktada yıldız net-tie ile birleştirilir.
+- Diferansiyel Çift: USB D+/D- hatlarında serpentine uzunluk eşitlemesi.
+
+--------------------------------------------------------------------
+YÖNTEM 1: KiCad PCM ile Kurulum (EN KOLAY & RESMİ YÖNTEM)
+--------------------------------------------------------------------
+1. KiCad PCB Düzenleyiciyi (pcbnew) açın.
+2. Üst menüden "Eklenti ve İçerik Yöneticisi" (Plugin and Content Manager - PCM) butonuna tıklayın.
+3. Açılan pencerenin en altındaki "Dosyadan Yükle..." (Install from File...) butonuna basın.
+4. "kicad-ai-copilot-plugin.zip" dosyasını seçin.
+5. Sağ alttaki "Değişiklikleri Uygula" (Apply Changes) butonuna tıklayın.
+6. PCB Düzenleyicide eklenti butonunuz kullanıma hazırdır!
+
+--------------------------------------------------------------------
+YÖNTEM 2: 1-Tıkla Otomatik Script ile Kurulum
+--------------------------------------------------------------------
+- Windows: "install_windows.bat" dosyasına çift tıklayın.
+- Linux & macOS: Terminalde "bash install_linux_mac.sh" komutunu çalıştırın.
+
+--------------------------------------------------------------------
+YÖNTEM 3: Manuel Kurulum
+--------------------------------------------------------------------
+"plugins" klasörünün içindeki tüm dosyaları KiCad eklenti dizinine kopyalayın:
+- Windows: %APPDATA%\kicad\8.0\scripting\plugins\kicad_ai_copilot\
+- Linux:   ~/.local/share/kicad/8.0/scripting/plugins/kicad_ai_copilot/
+- macOS:   ~/Library/Application Support/kicad/8.0/scripting/plugins/kicad_ai_copilot/
+Ardından KiCad'de "Araçlar -> Dış Eklentiler -> Eklentileri Yenile" yapın.

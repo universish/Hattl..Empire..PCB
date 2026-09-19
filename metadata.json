@@ -1,0 +1,29 @@
+{
+  "$schema": "https://go.kicad.org/pcm/schemas/v1",
+  "name": "KiCad AI PCB Copilot & Auto-Router",
+  "description": "AI & Physics-informed intelligent PCB routing copilot for KiCad 7 & 8",
+  "description_full": "KiCad AI PCB Copilot & Auto-Router automates high-speed and power layout while preserving 100% of human component placement. Features include IPC-2152 current-density trace sizing, 50 Ohm RF Coplanar Waveguide (CPWG) with stitching via shielding fence, Star Net-Tie grounding, crystal keepout guard rings, and differential pair serpentine skew tuning.",
+  "category": "Layout and Routing",
+  "author": {
+    "name": "Saffet Yavuz",
+    "contact": {
+      "web": "https://kicad.org"
+    }
+  },
+  "license": "GPL-3.0-or-later",
+  "resources": {
+    "homepage": "https://kicad.org"
+  },
+  "versions": [
+    {
+      "version": "1.2.0",
+      "status": "stable",
+      "kicad_version": ">=7.0.0",
+      "platforms": [
+        "linux",
+        "windows",
+        "macos"
+      ]
+    }
+  ]
+}
