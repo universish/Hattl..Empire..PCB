@@ -1,12 +1,14 @@
 # KiCad AI PCB Copilot & Auto-Router
 
-[![KiCad Version](https://img.shields.io/badge/KiCad-7.0%20%7C%208.0-blue.svg)](https://kicad.org)
+[![KiCad Version](https://img.shields.io/badge/KiCad-10.0.6-blue.svg)](https://kicad.org)
+[![Rust](https://img.shields.io/badge/Rust-High%20Performance-orange.svg)](https://rust-lang.org)
 [![Python](https://img.shields.io/badge/Python-3.9%2B-green.svg)](https://python.org)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![IPC Standard](https://img.shields.io/badge/Standard-IPC--2152-orange.svg)](https://ipc.org)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg)]()
+[![Platform](https://img.shields.io/badge/Platform-Fedora%2044%20%7C%20Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg)]()
 
-> **Physics-informed, AI-accelerated routing and layout copilot for KiCad EDA.**  
+> **Physics-informed, AI-accelerated routing and layout copilot for KiCad EDA, powered by a high-performance Rust engine.**
+> Optimized for Linux distributions (like Fedora 44) with AVX2 CPU and modern hardware awareness.
 > Maintains 100% human component placement while automating IPC-2152 power traces, 50Ω RF Coplanar Waveguides (CPWG), Star Net-Ties, and high-speed serpentine skew matching.
 
 ---
@@ -67,6 +69,6 @@ For detailed step-by-step instructions, see **[MANUAL_EN.md](MANUAL_EN.md)** or 
 
 This project operates under a **Dual-Architecture & Dual-Licensing Model**:
 - **KiCad Desktop Plugin (`plugins/`)**: Distributed under the **GNU General Public License v3.0 (GPLv3)** for full compatibility with the KiCad ecosystem.
-- **Commercial Web SaaS & Cloud Routing Engine**: **Proprietary & Closed-Source (All Rights Reserved by Saffet Yavuz)**. The web platform, AI routing heuristics, and cloud backend are strictly excluded from the GPL under network isolation terms.
+- **Commercial Web SaaS & Cloud Routing Engine**: **Proprietary & Closed-Source (All Rights Reserved by Saffet Yavuz (universish))**. The web platform, AI routing heuristics, and cloud backend are strictly excluded from the GPL under network isolation terms.
 
 For full legal terms, consult **[COPYRIGHT.md](COPYRIGHT.md)**, **[EULA.md](EULA.md)**, and **[NOTICES.md](NOTICES.md)**.

@@ -8,7 +8,7 @@
 ### 1. ESER SAHİBİ VE TELİF HAKKI BİLDİRİMİ
 Bu yazılım projesi, mimarisi, kaynak kodları, algoritmaları, görsel arayüzleri ve belgeleri üzerindeki tüm fikri ve sınai mülkiyet hakları **Saffet Yavuz**'a (bundan böyle **"Hak Sahibi"** olarak anılacaktır) aittir.
 
-**Telif Hakkı © 2026 Saffet Yavuz. Tüm Hakları Saklıdır.**
+**Telif Hakkı © 2026 Saffet Yavuz (universish). Tüm Hakları Saklıdır.**
 
 Bu proje, **İkili Lisanslama ve Mimari Ayrım (Dual-Architecture & Dual-Licensing)** esasına göre yapılandırılmıştır.
 
@@ -52,7 +52,7 @@ Bu telif hakları ve fikri mülkiyet şartları, Türkiye Cumhuriyeti Fikir ve S
 ### 1. AUTHORSHIP & COPYRIGHT NOTICE
 All intellectual property, proprietary technology, source code, architecture, algorithms, user interfaces, mathematical formulations, and documentation comprising this project are the sole and exclusive property of **Saffet Yavuz** (hereinafter referred to as the **"Copyright Holder"**).
 
-**Copyright © 2026 Saffet Yavuz. All Rights Reserved.**
+**Copyright © 2026 Saffet Yavuz (universish). All Rights Reserved.**
 
 This project operates strictly under a **Dual-Architecture & Dual-Licensing Model**.
 
