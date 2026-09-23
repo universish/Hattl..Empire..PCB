@@ -17,5 +17,5 @@ jobs:
         env:
           CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
         run: |
-          git remote add codeberg https://oauth2:${CODEBERG_TOKEN}@codeberg.org/universish/Isaurian.git
+          git remote add codeberg https://oauth2:${CODEBERG_TOKEN}@codeberg.org/universish/Hattl..Empire..PCB.git
           git push codeberg main --force
