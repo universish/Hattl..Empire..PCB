@@ -1,11 +1,21 @@
 # KiCad AI PCB Copilot & Auto-Router
 
-[![KiCad Version](https://img.shields.io/badge/KiCad-10.0.6-blue.svg)](https://kicad.org)
+[![KiCad Version](https://img.shields.io/badge/KiCad-10.0.6+-blue.svg)](https://kicad.org)
 [![Rust](https://img.shields.io/badge/Rust-High%20Performance-orange.svg)](https://rust-lang.org)
 [![Python](https://img.shields.io/badge/Python-3.9%2B-green.svg)](https://python.org)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![IPC Standard](https://img.shields.io/badge/Standard-IPC--2152-orange.svg)](https://ipc.org)
 [![Platform](https://img.shields.io/badge/Platform-Fedora%2044%20%7C%20Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg)]()
+[![Build](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge)]()
+[![Main Repo](https://img.shields.io/badge/codeberg-Repo-blue?logo=codeberg)](https://codeberg.org/universish/Hattl..Empire..PCB)
+[![Mirror Repo](https://img.shields.io/badge/github-Mirror%20repo-blue?logo=github)](https://github.com/universish/Hattl..Empire..PCB/)
+
+---
+
+<img width="2140" height="1984" alt="hittite-logo" src="https://github.com/user-attachments/assets/786e7e4f-b78d-46e0-bfed-a65005e572c9" />
+
+
+---
 
 > **Physics-informed, AI-accelerated routing and layout copilot for KiCad EDA, powered by a high-performance Rust engine.**
 > Optimized for Linux distributions (like Fedora 44) with AVX2 CPU and modern hardware awareness.
