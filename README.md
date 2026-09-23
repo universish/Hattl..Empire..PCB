@@ -12,12 +12,17 @@
 > Maintains 100% human component placement while automating IPC-2152 power traces, 50Ω RF Coplanar Waveguides (CPWG), Star Net-Ties, and high-speed serpentine skew matching.
 
 Hittites /ˈhɪtaɪts/ 
+
 Hittite Empire (KUR URU.ḪattI)
+
 Hattusa Ḫa-at-tu-ša Hattusha 
 Tarḫuntašša 
 Šamuḫa 
+
 Language: Hittite, Hattic, Luwian, Hurrian 
+
 See: [wikipedia](https://en.wikipedia.org/wiki/Hittites)
+
 
 Physics-informed, AI-accelerated routing and layout copilot for KiCad EDA, powered by a high-performance Rust engine 
 KiCAD Plugin
